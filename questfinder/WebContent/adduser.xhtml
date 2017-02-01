@@ -1,0 +1,143 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/WEB-INF/templates/master.xhtml">
+
+	<ui:define name="titel">Neuer Benutzer</ui:define>	
+	
+	<!-- Body -->
+	<ui:define name="content">
+	
+	<h:form>
+	
+		<p:wizard flowListener="#{addUserWizard.onFlowProcess}" >
+			<p:tab title="Anmeldeinformation">
+				<p:panel header="Anmeldeinformation">
+					<p:messages/>
+					<h:panelGrid columns="2" columnClasses="label, value">
+					
+					<h:outputText value="Anzeigename: *"/>
+						<p:inputText value="#{addUserWizard.user.nick}" required="true" id="nick">
+							<f:validator validatorId="addUserWizardValidator" />
+						</p:inputText>
+					
+					<h:outputText value="E-Mailadresse: *"/>
+					<p:inputText value="#{addUserWizard.user.eMail}" required="true" id="email"> 							
+						<f:validator validatorId="addUserWizardValidator" />
+					</p:inputText>
+						
+					<h:outputLabel for="password" value="Passwort:" />
+					<p:password id="password" value="#{addUserWizard.user.password}"
+						match="passwordConfirm" required="true" feedback="true"
+						promptLabel="Bitte ein Passwort wählen" weakLabel="schwach"
+						goodLabel="gut" strongLabel="stark" />
+	
+					<h:outputLabel for="passwordConfirm" value="Passwort wiederholen" />
+					<p:password id="passwordConfirm" value="passwordConfirm"
+						label="Password2" required="true" />
+						
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			
+			<p:tab title="Zur Person">
+				<p:panel header="Zur Person">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+						<h:outputText value="Geschlecht: *" />
+						<p:selectOneMenu value="#{addUserWizard.user.gender}">
+							<f:selectItem itemLabel="Mann" itemValue="m" />
+							<f:selectItem itemLabel="Frau" itemValue="f" />
+						</p:selectOneMenu>
+						
+						<h:outputText value="Vorname: *" />
+						<p:inputText value="#{addUserWizard.user.fName}" required="true"
+							label="Vorname" />
+
+						<h:outputText value="Nachname: *" />
+						<p:inputText value="#{addUserWizard.user.lName}" required="true"
+							label="Nachname" />
+
+						<h:outputText value="Geboren am: " />
+						<p:calendar value="#{addUserWizard.user.bday}" locale="de"/>
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			
+			
+			<p:tab title="Adresse">
+				<p:panel header="Adresse">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+						<h:outputText value="Straße: " />
+						<p:inputText value="#{addUserWizard.user.homeLocation.street}"
+							label="Straße" />
+						<h:outputText value="Postleitzahl: " />
+						<p:inputText value="#{addUserWizard.user.homeLocation.postCode}"
+							label="Postleitzahl" />
+						<h:outputText value="Ort: " />
+						<p:inputText value="#{addUserWizard.user.homeLocation.city}"/>
+						
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			<p:tab title="Eingaben Überprüfen">
+				<p:panel>
+					<h:panelGrid>
+						<h:outputText value="Vorname: " />
+                        <h:outputText value="#{addUserWizard.user.fName}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Nachname: " />
+                        <h:outputText value="#{addUserWizard.user.lName}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Nickname: " />
+                        <h:outputText value="#{addUserWizard.user.nick}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="E-Mail: " />
+                        <h:outputText value="#{addUserWizard.user.eMail}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Geburtsdatum: " />
+                        <h:outputText value="#{addUserWizard.user.bday}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Land: " />
+                        <h:outputText value="#{addUserWizard.user.homeLocation.country}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Wohnort: " />
+                        <h:outputText value="#{addUserWizard.user.homeLocation.city}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Straße: " />
+                        <h:outputText value="#{addUserWizard.user.homeLocation.street}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="PLZ: " />
+                        <h:outputText value="#{addUserWizard.user.homeLocation.postCode}" styleClass="outputLabel"/>
+                        
+                        <p:commandButton value="Speichern" action="#{addUserWizard.user.save}" process="@this"/>
+                        
+					</h:panelGrid>
+				
+				</p:panel>
+			</p:tab>
+			
+		
+		</p:wizard>
+
+				
+				
+				
+				
+				
+
+
+
+
+
+
+
+		
+	</h:form>
+	</ui:define>
+
+</ui:composition>
